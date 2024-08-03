@@ -91,7 +91,7 @@ export default function NavbarElement({ bgColor, currentId }) {
     <header
       ref={headerRef}
       className={`${
-        isFixed ? "navbar-fixed sm:navbar-blur" : ""
+        isFixed ? "navbar-fixed" : ""
       } ${bgColor} h-12 absolute flex top-0 left-0 right-0 m-0 p-0 shadow-md sm:h-16 font-exo2 justify-center items-center navbar-border transition-all duration-1000`}
     >
       <div className="h-full w-full flex px-12 justify-between items-center xl:justify-around">

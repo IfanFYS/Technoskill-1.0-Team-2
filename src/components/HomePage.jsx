@@ -5,9 +5,19 @@ import axios from "axios";
 import NavbarElement from "./elements/NavbarElement";
 import title from "../assets/title.svg";
 import homeIcon from "../assets/home.svg";
+import editIcon from "../assets/edit.svg";
+import searchIcon from "../assets/search.svg";
 
 export default function HomePage() {
   const [data, setData] = useState([]);
+  const [searchBy, setSearchBy] = useState("name");
+  const [search, setSearch] = useState("");
+
+  const options = [
+    { name: "Name", value: "name" },
+    { name: "Division", value: "division" },
+    { name: "Salary", value: "salary" },
+  ];
 
   const handleHomePage = async () => {
     try {
@@ -32,7 +42,7 @@ export default function HomePage() {
 
       <div className="font-exo2 flex-col justify-center w-full overflow-hidden relative mx-10 mt-20 mb-8 sm:mt-24">
         <div className="pt-5 sm:pt-8 pb-8">
-          <div className="w-48 sm:w-72 mx-auto mt-4 mb-12 sm:mb-[60px] flex justify-center items-center transition-all duration-1000">
+          <div className="w-72 sm:w-96 mx-auto mt-4 mb-12 sm:mb-[60px] flex justify-center items-center transition-all duration-1000">
             <img src={title} className=" object-cover mx-auto" />
           </div>
           <div className="italic text-center text-[1.5rem] sm:text-[2rem] font-bold bg-gradient-to-r from-white to-[#E09D1A] text-transparent bg-clip-text">
@@ -50,8 +60,8 @@ export default function HomePage() {
           </button>
         </div>
         <div id="home" className="pt-12 sm:pt-16">
-          <div className="bg-[#2A2822] mt-4 pb-1 w-full transition-all duration-1000 rounded-lg ease-in-out overflow-hidden">
-            <div className="py-3 text-xl md:text-2xl font-light mb-4 text-white text-center bg-[#514A34]">
+          <div className="bg-[#2A2822] mt-4 pb-1 w-full transition-all duration-1000 rounded-lg max-w-2xl mx-auto ease-in-out overflow-hidden">
+            <div className="py-3 text-xl md:text-2xl font-light mb-4 text-white text-center bg-[#363020]">
               Employee Database
             </div>
             <img
@@ -59,54 +69,102 @@ export default function HomePage() {
               className="h-24 pb-2 sm:h-32 object-cover mx-auto"
               alt="Home Icon"
             />
-            <div className="text-white text-lg md:text-xl font-semibold text-center px-5 my-1">
-              Click on a cell to see the details
+            <div className="hidden sm:flex items-center px-5">
+              <div className="mx-2 w-fit text-white">Search by</div>
+              <select
+                className="w-fit sm:text-lg text-center bg-[#403E36] hover:bg-[#49473f] text-white outline-none px-2 rounded-lg"
+                value={searchBy}
+                onChange={(e) => setSearchBy(e.target.value)}
+              >
+                {options.map((item, index) => (
+                  <option key={index} value={item.value}>
+                    {item.name}
+                  </option>
+                ))}
+              </select>
             </div>
-            <ol className="w-full">
+            <div className="mt-1 mb-2 px-5 relative">
+              <input
+                type="text"
+                name="search"
+                id="search-box"
+                className="w-full sm:text-lg bg-[#403E36] hover:bg-[#49473f] text-white outline-none px-2 rounded-lg placeholder:italic placeholder:opacity-60 placeholder-white focus:border-solid focus:border-[1px] focus:border-white"
+                onChange={(e) => setSearch(e.target.value)}
+                placeholder="Search"
+              />
+              <span className="absolute right-7 top-1 cursor-pointer">
+                <img src={searchIcon} className="w-4 sm:w-5 invert" />
+              </span>
+            </div>
+            <ol>
               {data.length > 0 ? (
                 <>
                   <li className="mt-1 w-full px-5 text-left hidden sm:flex">
-                    <div className="w-10 text-sm text-center font-semibold text-white outline-none px-2 rounded-lg mr-1">
+                    <div className="w-10 sm:text-lg text-center font-semibold text-white outline-none px-2 rounded-lg mr-0.5">
                       No
                     </div>
-                    <div className="grid grid-cols-[4fr_3fr_2fr] auto-rows-auto px-2 text-sm font-semibold text-white w-full outline-none rounded-l">
-                      <span>Name</span>
-                      <span>Division</span>
-                      <span>Salary</span>
+                    <div className="w-[40%] sm:text-lg font-semibold text-white outline-none px-2 rounded-lg mx-0.5">
+                      Name
+                    </div>
+                    <div className="w-[30%] sm:text-lg font-semibold text-white outline-none px-2 rounded-lg mx-0.5">
+                      Division
+                    </div>
+                    <div className="w-[30%] sm:text-lg font-semibold text-white outline-none px-2 rounded-lg ml-0.5">
+                      Salary
                     </div>
                   </li>
-                  {data.map((employee, index) => (
-                    <li
-                      key={index}
-                      className="flex flex-row-reverse items-center my-1 sm:mb-1 w-full px-5 text-left group"
-                      onClick={() => {
-                        navigate("/home/details");
-                      }}
-                    >
-                      <div className="grid grid-cols-[48px_12px_1fr] auto-rows-auto text-xs font-semibold text-white px-2 py-1 w-full outline-none bg-[#403E36] rounded-lg cursor-pointer transition shadow-xl group-hover:bg-[#5b5a51] sm:grid-cols-[4fr_3fr_2fr]">
-                        <div className="my-1 text-center col-span-3 rounded-lg bg-[#2A2822] group-hover:bg-[#403E36] sm:hidden transition">
+                  {data
+                    .filter((item) => {
+                      if (search === "") return item;
+
+                      const searchTerm = search.toLowerCase();
+                      switch (searchBy) {
+                        case "name":
+                          return item.name.toLowerCase().includes(searchTerm);
+                        case "division":
+                          return item.division
+                            .toLowerCase()
+                            .includes(searchTerm);
+                        case "salary":
+                          return item.salary.toString().includes(searchTerm);
+                        default:
+                          return true;
+                      }
+                    })
+                    .map((employee, index) => (
+                      <li
+                        key={index}
+                        className="flex flex-row items-center my-1 sm:mb-1 w-full px-5 text-left cursor-pointer group"
+                        onClick={() => navigate("/home/details")}
+                      >
+                        <div className="w-10 sm:text-lg text-center bg-[#403E36] group-hover:bg-[#49473f] text-white outline-none px-2 rounded-lg mr-0.5 group-hover:border-solid group-hover:border-[1px] group-hover:border-white">
                           {index + 1}
                         </div>
-                        <span className="sm:hidden">Name</span>
-                        <span className="text-center sm:hidden">:</span>
-                        <div className="font-light">{employee.name}</div>
-                        <span className="sm:hidden">Division</span>
-                        <span className="text-center sm:hidden">:</span>
-                        <div className="font-light">{employee.division}</div>
-                        <span className="sm:hidden">Salary</span>
-                        <span className="text-center sm:hidden">:</span>
-                        <div className="font-light">IDR {employee.salary}</div>
-                      </div>
-                      <div className="w-10 h-6 hidden text-xs sm:flex justify-center items-center font-semibold shadow-xl text-white py-1 outline-none bg-[#403E36] rounded-lg transition group-hover:bg-[#5b5a51] mr-1">
-                        {index + 1}
-                      </div>
-                    </li>
-                  ))}
+                        <div className="w-[100%] sm:text-lg bg-[#403E36] group-hover:bg-[#49473f] text-white outline-none px-2 rounded-lg mx-0.5 relative sm:w-[40%] group-hover:border-solid group-hover:border-[1px] group-hover:border-white">
+                          {employee.name}
+                          <span className="absolute right-1 top-1">
+                            <img src={editIcon} className="w-3 invert" />
+                          </span>
+                        </div>
+                        <div className="w-[30%] sm:text-lg bg-[#403E36] group-hover:bg-[#49473f] text-white outline-none px-2 rounded-lg mx-0.5 hidden sm:block group-hover:border-solid group-hover:border-[1px] group-hover:border-white">
+                          {employee.division}
+                        </div>
+                        <div className="w-[30%] sm:text-lg bg-[#403E36] group-hover:bg-[#49473f] text-white outline-none px-2 rounded-lg ml-0.5 hidden sm:block group-hover:border-solid group-hover:border-[1px] group-hover:border-white">
+                          {employee.salary}
+                        </div>
+                      </li>
+                    ))}
                 </>
               ) : (
                 <li className="flex items-center justify-center my-1 sm:mb-1 w-full px-5 text-center">
-                  <div className="font-semibold text-white px-2 py-1 w-full outline-none bg-[#403E36] rounded-lg shadow-xl">
+                  <div className="font-semibold text-white px-2 py-1 w-full outline-none bg-[#403E36] hover:bg-[#49473f] rounded-lg shadow-xl">
                     NO DATA
+                    <div
+                      className="text-xs text-[#44C9DC] text-center font-semibold cursor-pointer"
+                      onClick={() => navigate("/new")}
+                    >
+                      Add Employee
+                    </div>
                   </div>
                 </li>
               )}

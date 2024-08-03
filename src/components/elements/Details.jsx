@@ -55,7 +55,7 @@ export default function DetailsPage() {
           <div className="py-3 text-xl md:text-2xl font-light mb-4 text-white text-center bg-[#2E241F]">
             Edit Existing Employee
           </div>
-          <div className="w-[80%] text-center text-xl sm:text-2xl font-bold bg-gradient-to-r from-white to-[#AD4900] text-transparent bg-clip-text">
+          <div className="mx-auto w-[80%] text-center text-xl sm:text-2xl font-bold bg-gradient-to-r from-white to-[#AD4900] text-transparent bg-clip-text">
             Want to Change the Details?
           </div>
           <div className="mx-auto text-sm sm:text-base text-center text-white my-2 w-[75%]">

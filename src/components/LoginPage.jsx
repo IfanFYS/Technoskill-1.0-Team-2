@@ -6,6 +6,8 @@ import LoginElement from "./elements/LoginElement";
 
 import loginIcon from "../assets/login.svg";
 import registerIcon from "../assets/register.svg";
+import eyeIcon from "../assets/eye.svg";
+import eyeOffIcon from "../assets/eye-off.svg";
 
 export default function LoginPage() {
   const [regName, setRegName] = useState("");
@@ -15,6 +17,21 @@ export default function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isRegister, setIsRegister] = useState(false);
+
+  // Show Password
+  const [showLoginPassword, setShowLoginPassword] = useState(false);
+  const [showRegPassword, setShowRegPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+
+  const toggleLoginPassword = () => {
+    setShowLoginPassword(!showLoginPassword);
+  };
+  const toggleRegPassword = () => {
+    setShowRegPassword(!showRegPassword);
+  };
+  const toggleConfirmPassword = () => {
+    setShowConfirmPassword(!showConfirmPassword);
+  };
 
   const validatePassword = (password, confirmPassword) => {
     // Check if confirm password is filled
@@ -197,13 +214,22 @@ export default function LoginPage() {
               </div>
               <div className="mt-5 relative w-full px-5 text-center">
                 <input
-                  type="password"
+                  type={showRegPassword ? "text" : "password"}
                   value={regPassword}
                   onChange={(e) => setRegPassword(e.target.value)}
                   className="text-xs font-light text-white px-2 h-6 w-full outline-none bg-[#4e4667] peer rounded-lg placeholder:italic placeholder:opacity-60 placeholder-white shadow-xl focus:border-solid focus:border-[1px] focus:border-white"
                   placeholder="Enter Your Password"
                   required
                 />
+                <span
+                  className="absolute right-7 top-1 cursor-pointer"
+                  onClick={toggleRegPassword}
+                >
+                  <img
+                    src={showRegPassword ? eyeIcon : eyeOffIcon}
+                    className="w-5 invert"
+                  />
+                </span>
                 <label
                   htmlFor="password"
                   className="font-semibold text-white pointer-events-none absolute left-5 -top-4 text-xs transition-all duration-300"
@@ -213,13 +239,22 @@ export default function LoginPage() {
               </div>
               <div className="mt-5 relative w-full px-5 text-center">
                 <input
-                  type="password"
+                  type={showConfirmPassword ? "text" : "password"}
                   value={confirmPassword}
                   onChange={(e) => setConfirmPassword(e.target.value)}
                   className="text-xs font-light text-white px-2 h-6 w-full outline-none bg-[#4e4667] peer rounded-lg placeholder:italic placeholder:opacity-60 placeholder-white shadow-xl focus:border-solid focus:border-[1px] focus:border-white"
                   placeholder="Confirm Your Password"
                   required
                 />
+                <span
+                  className="absolute right-7 top-1 cursor-pointer"
+                  onClick={toggleConfirmPassword}
+                >
+                  <img
+                    src={showConfirmPassword ? eyeIcon : eyeOffIcon}
+                    className="w-5 invert"
+                  />
+                </span>
                 <label
                   htmlFor="confirm-password"
                   className="font-semibold text-white pointer-events-none absolute left-5 -top-4 text-xs transition-all duration-300"
@@ -311,13 +346,22 @@ export default function LoginPage() {
               </div>
               <div className="mt-5 relative w-full px-5 text-center">
                 <input
-                  type="password"
+                  type={showLoginPassword ? "text" : "password"}
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   className="text-xs font-light text-white px-2 h-6 w-full outline-none bg-[#765F66] peer rounded-lg placeholder:italic placeholder:opacity-60 placeholder-white focus:border-solid focus:border-[1px] focus:border-white"
                   placeholder="Enter Your Password"
                   required
                 />
+                <span
+                  className="absolute right-7 top-1 cursor-pointer"
+                  onClick={toggleLoginPassword}
+                >
+                  <img
+                    src={showLoginPassword ? eyeIcon : eyeOffIcon}
+                    className="w-5 invert"
+                  />
+                </span>
                 <label
                   htmlFor="password"
                   className="font-semibold text-white pointer-events-none absolute left-5 -top-4 text-xs transition-all duration-300"

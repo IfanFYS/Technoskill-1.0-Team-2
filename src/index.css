@@ -25,10 +25,3 @@ html {
 .hamburger-active > span:nth-child(3) {
   @apply -translate-y-[12px] -rotate-[225deg];
 }
-
-@media (min-width: 640px) {
-  .sm\:navbar-blur {
-    @apply bg-opacity-70;
-    backdrop-filter: blur(5px);
-  }
-}

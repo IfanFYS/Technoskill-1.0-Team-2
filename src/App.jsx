@@ -13,15 +13,14 @@ function App() {
         <Route path="/" element={<Navigate to={"/login"} />} />
         <Route path="/register" element={<Navigate to={"/login"} />} />
 
+        <Route path="/login" element={<LoginPage />} />
+
         <Route path="/home" element={<HomePage />} />
+        <Route path="/home/details" element={<DetailsPage />} />
 
         <Route path="/new" element={<NewPage />} />
 
         <Route path="/my-info" element={<MyInfoPage />} />
-
-        <Route path="/login" element={<LoginPage />} />
-
-        <Route path="/home/details" element={<DetailsPage />} />
       </Routes>
     </BrowserRouter>
   );
