@@ -1,5 +1,8 @@
-const { Pool } = require("pg");
-const dotenv = require("dotenv");
+import pkg from 'pg';
+import dotenv from 'dotenv';
+
+const { Pool } = pkg;
+
 dotenv.config();
 
 const pool = new Pool({
@@ -7,14 +10,15 @@ const pool = new Pool({
   password: process.env.PGPASSWORD,
   host: process.env.PGHOST,
   database: process.env.PGDATABASE,
-
   ssl: {
     require: true,
   },
 });
 
 pool.connect().then(() => {
-  console.log(`Connected to Neon database!`);
+  console.log('Connected to Neon database!');
+}).catch((err) => {
+  console.error('Error connecting to Neon database:', err);
 });
 
-module.exports = pool;
+export default pool;
