@@ -16,27 +16,24 @@ The competition is held on July 26 - August 5, 2024, after the series of worksho
 ## **Features 💻**
 
 - ### Login Page:
-In this page, the user will be asked to log in to the site using their account before accessing the database.
+This is the first page the user will see when they launch the app on their computer. In this page, the user will be asked to log in to the site using their account before accessing the database.
 <p align="center">
-<img src="gambar" width="300" height="200" style="border-radius: 10px;">
+<img src="FIGMA\LoginPage.jpeg" style="border-radius: 10px;">
 </p>
-If the user tries to login without entering a username and/or password the following error will show up:
+If the user tries to login without entering a username and/or password an error will show up. Similarly, if the user tries to login using the wrong username and/or password for an account, a different error will show up
+
+
+- ### Register Page:
+I 
 <p align="center">
-<img src="gambar" width="150" style="border-radius: 10px;">
-</p>
-Similarly, if the user tries to login using the wrong username and/or password for an account, this error will show up:
-<p align="center">
-<img src="gambar" width="150" style="border-radius: 10px;">
+<img src="FIGMA\RegisterPage.jpeg" style="border-radius: 10px;">
 </p>
 
-- ### Employee Database:
-View all employee details at a glance.
-- ### Add New Employee:
-Easy interface to add new employees to the system.
-- ### Edit Employee Details:
-Modify existing employee information.
-- ### User Profile Management:
-Users can update their account information.
+- ### Home Page:
+
+- ### My Info Page:
+
+- ### Add New Page:
 
 ## **Technologies Used ⚒️**
 
@@ -60,3 +57,4 @@ Users can update their account information.
 ## **External Links 🔗**
 - ### Figma Design:
 https://www.figma.com/design/aB5WXUiG0NpA0PhAliXTjm/Technoskill-1.0-Team-2?node-id=0-1&t=K2un4ZLgZKBwAFwG-1
+- ### Youtube Video:
