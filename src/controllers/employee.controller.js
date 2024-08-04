@@ -1,37 +1,36 @@
-// This connects to the PostgreSQL on connect.js
-const pg = require("../utils/connect");
+import pool from '../utils/connect.js';
 
 // Function to add a new employee
-exports.addEmployee = async function addEmployee(req, res) {
+export const addEmployee = async (req, res) => {
   try {
     const { name, division, salary } = req.body;
-    const response = await pg.query(
+    const response = await pool.query(
       "INSERT INTO employee (name, division, salary) VALUES ($1, $2, $3) RETURNING *",
       [name, division, salary]
     );
 
     res.status(201).json(response.rows[0]); // Returns HTTP status code 201.
   } catch (error) {
-    res.status(500).json(error.message); // Returns HTTP status code 500 if an error is encountered.
+    res.status(500).json({ error: error.message }); // Returns HTTP status code 500 if an error is encountered.
   }
 };
 
 // Function to get all employees
-exports.getAllEmployee = async function getAllEmployee(req, res) {
+export const getAllEmployee = async (req, res) => {
   try {
-    const response = await pg.query("SELECT * FROM employee");
+    const response = await pool.query("SELECT * FROM employee");
     res.status(200).json(response.rows);
   } catch (error) {
-    res.status(500).json(error.message);
+    res.status(500).json({ error: error.message });
   }
 };
 
 // Function to search employees by name
-exports.getEmployeesByName = async function getEmployeesByName(req, res) {
+export const getEmployeesByName = async (req, res) => {
   try {
     const { name } = req.body;
-    const response = await pg.query(
-      "SELECT * FROM employee WHERE NAME = $1",
+    const response = await pool.query(
+      "SELECT * FROM employee WHERE name = $1",
       [name]
     );
 
@@ -41,16 +40,16 @@ exports.getEmployeesByName = async function getEmployeesByName(req, res) {
       res.status(200).json(response.rows);
     }
   } catch (error) {
-    res.status(500).json(error.message);
+    res.status(500).json({ error: error.message });
   }
 };
 
 // Function to search employees by division
-exports.getEmployeesByDivision = async function getEmployeesByDivision(req, res) {
+export const getEmployeesByDivision = async (req, res) => {
   try {
     const { division } = req.body;
-    const response = await pg.query(
-      "SELECT * FROM employee WHERE DIVISION = $1",
+    const response = await pool.query(
+      "SELECT * FROM employee WHERE division = $1",
       [division]
     );
 
@@ -60,16 +59,16 @@ exports.getEmployeesByDivision = async function getEmployeesByDivision(req, res)
       res.status(200).json(response.rows);
     }
   } catch (error) {
-    res.status(500).json(error.message);
+    res.status(500).json({ error: error.message });
   }
 };
 
 // Function to search employees by salary range
-exports.getEmployeesSalaryBetween = async function getEmployeesSalaryBetween(req, res) {
+export const getEmployeesSalaryBetween = async (req, res) => {
   try {
     const { min, max } = req.body;
-    const response = await pg.query(
-      "SELECT * FROM employee WHERE SALARY >= $1 AND SALARY <= $2",
+    const response = await pool.query(
+      "SELECT * FROM employee WHERE salary >= $1 AND salary <= $2",
       [min, max]
     );
 
@@ -79,16 +78,16 @@ exports.getEmployeesSalaryBetween = async function getEmployeesSalaryBetween(req
       res.status(200).json(response.rows);
     }
   } catch (error) {
-    res.status(500).json(error.message);
+    res.status(500).json({ error: error.message });
   }
 };
 
 // Function to search an employee by ID
-exports.getOneEmployeeByID = async function getOneEmployeeByID(req, res) {
+export const getOneEmployeeByID = async (req, res) => {
   try {
     const { id } = req.body;
-    const response = await pg.query(
-      "SELECT * FROM employee WHERE ID = $1",
+    const response = await pool.query(
+      "SELECT * FROM employee WHERE id = $1",
       [id]
     );
 
@@ -98,15 +97,15 @@ exports.getOneEmployeeByID = async function getOneEmployeeByID(req, res) {
       res.status(200).json(response.rows[0]);
     }
   } catch (error) {
-    res.status(500).json(error.message);
+    res.status(500).json({ error: error.message });
   }
 };
 
 // Function to edit an existing employee
-exports.editEmployee = async function editEmployee(req, res) {
+export const editEmployee = async (req, res) => {
   try {
     const { id, name, division, salary } = req.body;
-    const response = await pg.query(
+    const response = await pool.query(
       "UPDATE employee SET name = $1, division = $2, salary = $3 WHERE id = $4 RETURNING *",
       [name, division, salary, id]
     );
@@ -117,15 +116,15 @@ exports.editEmployee = async function editEmployee(req, res) {
       res.status(200).json(response.rows[0]);
     }
   } catch (error) {
-    res.status(500).json(error.message);
+    res.status(500).json({ error: error.message });
   }
 };
 
 // Function to delete an existing employee
-exports.deleteEmployee = async function deleteEmployee(req, res) {
+export const deleteEmployee = async (req, res) => {
   try {
     const { id } = req.body;
-    const response = await pg.query(
+    const response = await pool.query(
       "DELETE FROM employee WHERE id = $1 RETURNING *",
       [id]
     );
@@ -136,6 +135,6 @@ exports.deleteEmployee = async function deleteEmployee(req, res) {
       res.status(200).json({ message: "Employee deleted successfully" });
     }
   } catch (error) {
-    res.status(500).json(error.message);
+    res.status(500).json({ error: error.message });
   }
 };
