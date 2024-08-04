@@ -52,6 +52,6 @@ Users can update their account information.
 
 | Team Members | Contribution |
 | :----------: | :----------: |
-| `@IfanFYS`| UI/UX Designer |
-| `@kimnzh`| Front-End Developer |
-| `@GanendrPratama`| Back-End Developer |
+| [**@IfanFYS**](https://github.com/IfanFYS)| *UI/UX Designer* |
+| [**@kimnzh**](https://github.com/kimnzh)| *Front-End Developer* |
+| [**@GanendrPratama**](https://github.com/GanendrPratama)| *Back-End Developer* |
