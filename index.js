@@ -1,11 +1,10 @@
-const express = require("express");
-const bodyParser = require("body-parser");
-const dotenv = require("dotenv");
+import express from "express";
+import bodyParser from "body-parser";
+import dotenv from "dotenv";
+import cors from "cors";
+import managerRoute from "./src/routes/manager.route.js";
+import employeeRoute from "./src/routes/employee.route.js";
 
-const managerRoute = require("./routes/manager.route");
-const employeeRoute = require("./routes/employee.route");
-
-const cors = require("cors");
 dotenv.config();
 
 const port = 8000; // Isi nomor port di sini;
