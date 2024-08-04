@@ -55,3 +55,8 @@ Users can update their account information.
 | [**@IfanFYS**](https://github.com/IfanFYS)| *UI/UX Designer* |
 | [**@kimnzh**](https://github.com/kimnzh)| *Front-End Developer* |
 | [**@GanendrPratama**](https://github.com/GanendrPratama)| *Back-End Developer* |
+
+
+## **External Links 🔗**
+- ### Figma Design:
+https://www.figma.com/design/aB5WXUiG0NpA0PhAliXTjm/Technoskill-1.0-Team-2?node-id=0-1&t=K2un4ZLgZKBwAFwG-1
