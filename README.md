@@ -1,19 +1,19 @@
-# **TechnoSkill 1.0 - Team 2 📌**
+# ***TECHNOSKILL 1.0 - Team 2 📌***
 
-## Hey There! 👋
-**Welcome to Team 2's repository, in here you will find a project that serves as our entry for the TechnoSkill 1.0 Competition**
+## **Hey There! 👋**
 
-## Overview 🔍
+### **Welcome to Team 2's repository! In here, you will find a project that serves as our entry for the TechnoSkill 1.0 Competition**
 
-<p style="text-align: justify;">
-The Technoskill 1.0 Competition is a competition held by the PIPTEK division of IME FTUI 2024. This competition is in the field of <span style="color:lightblue; font-weight: bold;">Fullstack Web Development</span> that involves the technical side of the frontend and backend in the form of Website creation.</p>
+## **Overview 🔍**
 
-<p style="text-align: justify;">
-The competition is held on <span style="color:lightblue; font-weight: bold;">July 26 - August 2, 2024</span>, after the series of workshops have been completed. This competition aims to channel students' ideas and creativity in learning how the website creation flow can work and can hone students' abilities, especially in the field of software, especially web development.
-<span style="color:lightblue; font-weight: bold;">This project provides a comprehensive solution for managing employees in a company, designed to streamline HR tasks with a user-friendly interface.</span>
-</p>
+The Technoskill 1.0 Competition is a competition held by the PIPTEK division of IME FTUI 2024. This competition is in the field of ***Fullstack Web Development*** that involves the technical side of the frontend and backend in the form of Website creation.
 
-## Features 💻
+The competition is held on July 26 - August 5, 2024, after the series of workshops have been completed. This competition aims to channel students' ideas and creativity in learning how the website creation flow can work and can hone students' abilities, especially in the field of software, especially web development.
+
+### ***This project provides a comprehensive solution for managing employees in a company, designed to streamline HR tasks with a user-friendly interface.***
+
+
+## **Features 💻**
 
 - ### Login Page:
 In this page, the user will be asked to log in to the site using their account before accessing the database.
@@ -38,9 +38,9 @@ Modify existing employee information.
 - ### User Profile Management:
 Users can update their account information.
 
-## Technologies Used ⚒️
+## **Technologies Used ⚒️**
 
-| **UI/UX Design** |  Front-End  |   Back-End   |
+| UI/UX Design |  Front-End  |   Back-End   |
 | :------------: | :------------: | :------------: |
 |<img src="README\Figma-Dark.svg" alt="Figma" width="50"><br>`Figma`|<img src="README/HTML.svg" alt="HTML" width="50"><br>`HTML`|<img src="README\Postman.svg" alt="Postman" width="50"><br>`Postman`|
 |<img src="README\TailwindCSS-Dark.svg" alt="TailwindCSS" width="50"><br>`Tailwind`|<img src="README\CSS.svg" alt="CSS" width="50"><br>`CSS`|<img src="README\NodeJS-Dark.svg" alt="NodeJS" width="50"><br>`NodeJS`|
@@ -48,7 +48,7 @@ Users can update their account information.
 ||<img src="README\React-Dark.svg" alt="ReactJS" width="50"><br>`ReactJS`||
 ||<img src="README\Vite-Dark.svg" alt="Vite" width="50"><br>`Vite`||
 
-## Contributors 🤝
+## **Contributors 🤝**
 
 | Team Members | Contribution |
 | :----------: | :----------: |
