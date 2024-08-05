@@ -16,17 +16,17 @@ export default function DetailsPage() {
   const handleEditEmployee = async () => {
     try {
       const response = await axios.put(`http://localhost:8000/employee/edit/${id}`, {
+        id,
         name,
         division,
         salary,
-        profile
       });
 
-      if (response.status !== 201) throw new Error("Add employee failed");
+      if (response.status !== 200) throw new Error("Add employee failed");
 
       console.log(response.data);
     } catch (error) {
-      console.error(error);
+      console.error(error.message);
     }
   };
 
