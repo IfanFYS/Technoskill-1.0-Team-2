@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
+import { useParams } from 'react-router-dom';
 
 import NavbarElement from "./NavbarElement";
 import detailsIcon from "../../assets/details.svg";
@@ -10,12 +11,15 @@ export default function DetailsPage() {
   const [salary, setSalary] = useState("");
   const [formattedSalary, setFormattedSalary] = useState("");
 
-  const handleAddEmployee = async () => {
+  const { id } = useParams();
+
+  const handleEditEmployee = async () => {
     try {
-      const response = await axios.post("http://localhost:8000/employee/add", {
+      const response = await axios.put(`http://localhost:8000/employee/edit/${id}`, {
         name,
         division,
         salary,
+        profile
       });
 
       if (response.status !== 201) throw new Error("Add employee failed");
