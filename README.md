@@ -25,7 +25,6 @@ This is the first page the user will see when they launch the app on their compu
 <img src="FIGMA\LoginPage.jpeg" width="500" style="border-radius: 10px;">
 </p>
 
-FIGMA\LoginPageError1.png
 If the user tries to login without entering a username and/or password an error will show up. Similarly, if the user tries to login using the wrong username and/or password for an account, a different error will show up *(These errors wild be shown in practice in the youtube demo in the end of the page)*. If the user hasn't made an account yet, they can click on the register tab in the navbar or click the following text below to enter the register page.
 
 <p align="center">
