@@ -25,7 +25,7 @@ This is the first page the user will see when they launch the app on their compu
 <img src="FIGMA\LoginPage.jpeg" width="500" style="border-radius: 10px;">
 </p>
 
-If the user tries to login without entering a username and/or password an error will show up. Similarly, if the user tries to login using the wrong username and/or password for an account, a different error will show up *(These errors will be shown in practice in the youtube demo in the end of the page)*. If the user hasn't made an account yet, they can click on the register tab in the navbar or click the following text below to enter the register page.
+If the user tries to login without entering a username and/or password an error will show up. Similarly, if the user tries to login using the wrong username and/or password for an account, a different error will show up. If the user hasn't made an account yet, they can click on the register tab in the navbar or click the following text below to enter the register page.
 
 <p align="center">
 <img src="FIGMA\LoginPagetoRegister.jpeg" width="250" style="border-radius: 10px;">
@@ -123,6 +123,3 @@ https://github.com/IfanFYS/Technoskill-1.0-Team-2#technoskill-10---team-2-
 
 - ### Figma Design:
 https://www.figma.com/design/aB5WXUiG0NpA0PhAliXTjm/Technoskill-1.0-Team-2?node-id=0-1&t=K2un4ZLgZKBwAFwG-1
-
-- ### Youtube Video:
-(Still Uploading)
