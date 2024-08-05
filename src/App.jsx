@@ -18,7 +18,7 @@ function App() {
         <Route path="/home/:mid" element={<HomePage />} />
         <Route path="/home/:mid/details/:id" element={<DetailsPage />} />
 
-        <Route path="/new" element={<NewPage />} />
+        <Route path="/new/:mid" element={<NewPage />} />
 
         <Route path="/my-info/:mid" element={<MyInfoPage />} />
       </Routes>

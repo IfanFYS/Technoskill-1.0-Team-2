@@ -5,15 +5,18 @@ import PropTypes from "prop-types";
 import logo from "../../assets/logo.svg";
 import logout from "../../assets/logout.svg";
 
-const { mid } = useParams();
 
-const navItems = [
-  { id: "home", text: "Home", path: "/home", current: false },
-  { id: "my-info", text: "My Info", path: `/my-info/${mid}`, current: false },
-  { id: "new", text: "Add New Employee", path: "/new", current: false },
-];
 
 export default function NavbarElement({ bgColor, currentId }) {
+
+  const { mid } = useParams();
+
+  const navItems = [
+    { id: "home", text: "Home", path: `/home/${mid}`, current: false },
+    { id: "my-info", text: "My Info", path: `/my-info/${mid}`, current: false },
+    { id: "new", text: "Add New Employee", path: `/new/${mid}`, current: false },
+  ];
+
   const navigate = useNavigate();
   const [isFixed, setIsFixed] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);

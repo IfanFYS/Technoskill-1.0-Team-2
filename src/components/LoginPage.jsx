@@ -136,9 +136,9 @@ export default function LoginPage() {
         password: regPassword,
       });
   
-      if (response.status !== 200) throw new Error("Registration failed");
+      if (response.status !== 201) throw new Error("Registration failed");
       console.log(response.data);
-      navigate("/home");
+      navigate(`/home/${response.data.id}`);
     } catch (error) {
       console.error("Error registering:", error);
     }

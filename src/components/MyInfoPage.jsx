@@ -1,8 +1,9 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect} from "react";
 import axios from "axios";
 
 import NavbarElement from "./elements/NavbarElement";
 import myInfoIcon from "../assets/my-info.svg";
+import { useParams } from "react-router-dom";
 
 export default function DetailsPage() {
   const [data, setData] = useState([]);
@@ -13,10 +14,11 @@ export default function DetailsPage() {
   const [oldPassword, setOldPassword] = useState("");
   const [changePassword, setChangePassword] = useState("");
   const [confirmNewPassword, setConfirmNewPassword] = useState("");
+  const { mid } = useParams();
 
   const handleInfo = async () => {
     try {
-      const response = await axios.post("http://localhost:8000/employee/get");
+      const response = await axios.get(`http://localhost:8000/manager/info/${mid}`);
       console.log(response.data);
 
       setData(response.data);
@@ -31,11 +33,8 @@ export default function DetailsPage() {
 
   const handleChange = async () => {
     try {
-      const response = await axios.post("http://localhost:8000/manager/login", {
-        changeEmail,
-        changeName,
-        changePassword,
-      });
+      const response = await axios.get("http://localhost:8000/manager");
+      console.log(response.data);
       if (response.status !== 200) throw new Error("Login failed");
       console.log(response.data);
       setIsUpdated(true);
@@ -186,145 +185,7 @@ export default function DetailsPage() {
             </div>
           </div>
         </div>
-        <div
-          id="change-data"
-          className="font-exo2 flex justify-center w-full h-fit overflow-hidden relative mx-5 mt-3 mb-8 max-w-lg rounded-lg"
-        >
-          <form
-            id="change-data"
-            className=" bg-[#2E3538] w-full h-full transition-all duration-1000 ease-in-out overflow-hidden"
-          >
-            <div className="text-center text-xl sm:text-2xl font-bold bg-gradient-to-r from-[#2A75AB] to-white text-transparent bg-clip-text mt-2">
-              Want to Edit Your Account?{" "}
-            </div>
-            <div className="mx-auto text-sm sm:text-base text-center text-white my-2 w-[75%]">
-              This is the account settings page. You can view and edit your
-              account information below!
-            </div>
-            <div className="grid grid-rows-1">
-              <div>
-                <div className="mt-5 relative w-full px-5 text-center">
-                  <input
-                    type="text"
-                    value={changeName}
-                    onChange={(e) => setChangeName(e.target.value)}
-                    className="text-xs font-light text-white px-2 h-6 w-full outline-none bg-[#454F54] peer rounded-lg placeholder:italic placeholder:opacity-60 placeholder-white shadow-xl focus:border-solid focus:border-[1px] focus:border-white"
-                    placeholder="Enter Your Name"
-                    required
-                  />
-                  <label
-                    htmlFor="name"
-                    className="font-semibold text-white pointer-events-none absolute left-5 -top-4 text-xs transition-all duration-300"
-                  >
-                    Update Name
-                  </label>
-                </div>
-                <div className="mt-5 relative w-full px-5 text-center">
-                  <input
-                    type="email"
-                    value={changeEmail}
-                    onChange={(e) => setChangeEmail(e.target.value)}
-                    className="text-xs font-light text-white px-2 h-6 w-full outline-none bg-[#454F54] peer rounded-lg placeholder:italic placeholder:opacity-60 placeholder-white shadow-xl focus:border-solid focus:border-[1px] focus:border-white"
-                    placeholder="Enter Your New Email"
-                    required
-                  />
-                  <label
-                    htmlFor="email"
-                    className="font-semibold text-white pointer-events-none absolute left-5 -top-4 text-xs transition-all duration-300"
-                  >
-                    Update Email
-                  </label>
-                </div>
-                <div
-                  className={`${
-                    emailValidation.isValid ? "hidden" : ""
-                  } font-semibold italic text-red-600 text-[10px] pl-5`}
-                >
-                  {emailValidation.message}
-                </div>
-                <div className="mt-5 relative w-full px-5 text-center">
-                  <input
-                    type="password"
-                    value={oldPassword}
-                    onChange={(e) => setOldPassword(e.target.value)}
-                    className="text-xs font-light text-white px-2 h-6 w-full outline-none bg-[#454F54] peer rounded-lg placeholder:italic placeholder:opacity-60 placeholder-white shadow-xl focus:border-solid focus:border-[1px] focus:border-white"
-                    placeholder="Enter Your Old Password"
-                    required
-                  />
-                  <label
-                    htmlFor="old-password"
-                    className="font-semibold text-white pointer-events-none absolute left-5 -top-4 text-xs transition-all duration-300"
-                  >
-                    Old Password
-                  </label>
-                </div>
-                <div className="mt-5 relative w-full px-5 text-center">
-                  <input
-                    type="password"
-                    value={changePassword}
-                    onChange={(e) => setChangePassword(e.target.value)}
-                    className="text-xs font-light text-white px-2 h-6 w-full outline-none bg-[#454F54] peer rounded-lg placeholder:italic placeholder:opacity-60 placeholder-white shadow-xl focus:border-solid focus:border-[1px] focus:border-white"
-                    placeholder="Enter Your New Password"
-                    required
-                  />
-                  <label
-                    htmlFor="new-password"
-                    className="font-semibold text-white pointer-events-none absolute left-5 -top-4 text-xs transition-all duration-300"
-                  >
-                    New Password
-                  </label>
-                </div>
-                <div className="mt-5 relative w-full px-5 text-center">
-                  <input
-                    type="password"
-                    value={confirmNewPassword}
-                    onChange={(e) => setConfirmNewPassword(e.target.value)}
-                    className="text-xs font-light text-white px-2 h-6 w-full outline-none bg-[#454F54] peer rounded-lg placeholder:italic placeholder:opacity-60 placeholder-white shadow-xl focus:border-solid focus:border-[1px] focus:border-white"
-                    placeholder="Confirm Your New Password"
-                    required
-                  />
-                  <label
-                    htmlFor="confirm-new-password"
-                    className="font-semibold text-white pointer-events-none absolute left-5 -top-4 text-xs transition-all duration-300"
-                  >
-                    Confirm New Password
-                  </label>
-                </div>
-                <div className="relative">
-                  <div className="font-extralight italic text-white text-[10px] pl-5">
-                    *Make sure to use a{" "}
-                    <span className="font-bold">strong</span> password
-                  </div>
-                  <div
-                    className={`${
-                      passwordValidation.isValid ? "hidden" : ""
-                    } font-semibold italic text-red-600 text-[10px] pl-5`}
-                  >
-                    {passwordValidation.message}
-                  </div>
-                </div>
-                <button
-                  type="submit"
-                  className="h-8 mt-2 mb-2 py-[10px] px-[30px] flex items-center m-auto font-black text-white shadow-xl bg-[#325264] hover:bg-[#46738d] rounded-lg transition-all sm:mt-4"
-                  onClick={handleChange}
-                  disabled={
-                    !passwordValidation.isValid || !emailValidation.isValid
-                  }
-                >
-                  UPDATE CHANGES
-                </button>
-                <div
-                  className={`${
-                    isUpdated ? "" : "hidden"
-                  } text-xs text-white text-center cursor-pointer mb-2`}
-                >
-                  Your changes have been{" "}
-                  <span className="text-[#62FF3B]">saved!</span>
-                </div>
-              </div>
-            </div>
-          </form>
-        </div>
+        
       </div>
     </div>
   );

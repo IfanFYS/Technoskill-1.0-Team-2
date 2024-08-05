@@ -125,3 +125,21 @@ export const updateManager = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
+
+export const managerInfo = async (req, res) => {
+  try {
+    const { mid } = req.params; // Accessing params from req.params
+    const response = await pool.query(
+      "SELECT * FROM managers WHERE id = $1",
+      [mid]
+    );
+
+    if (response.rows.length === 0) {
+      res.status(404).json({ message: "manager not found" });
+    } else {
+      res.status(200).json(response.rows[0]);
+    }
+  } catch (err) {
+    res.status(500).json({ error: error.message });
+  }
+}
