@@ -87,8 +87,6 @@ In the my info page, the user will be able to view and change their account deta
 <img src="FIGMA\MyInfoPage.jpeg" width="500" style="border-radius: 10px;">
 </p>
 
-On the left window, the user could see their current name and email. They can also see their profile picture, gender, date of birth, and address if they have them or add them manually if they haven't already. In the right window, the user can change their username, email, and password.
-
 - ### Add New Page:
 
 In the add new page, the user will be able to add a new employee to the database by inputting it's name, division, and salary as shown below:
@@ -127,3 +125,4 @@ https://github.com/IfanFYS/Technoskill-1.0-Team-2#technoskill-10---team-2-
 https://www.figma.com/design/aB5WXUiG0NpA0PhAliXTjm/Technoskill-1.0-Team-2?node-id=0-1&t=K2un4ZLgZKBwAFwG-1
 
 - ### Youtube Video:
+(Still Uploading)
