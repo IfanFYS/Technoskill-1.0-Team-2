@@ -12,7 +12,7 @@ export const register = async (req, res) => {
     const defaultProfileImage = '../assets/new.svg';
     const response = await pool.query(
       `INSERT INTO managers (name, email, hashed_password, profile_image_url) 
-      VALUES ($1, $2, $3) 
+      VALUES ($1, $2, $3, $4) 
       RETURNING *`,
       [name, email, password, defaultProfileImage]
     );

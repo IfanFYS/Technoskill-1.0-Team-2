@@ -16,7 +16,7 @@ export const addEmployee = async (req, res) => {
 };
 
 // Function to get all employees
-export const getAllEmployee = async (res) => {
+export const getAllEmployee = async (req, res) => {
   try {
     const response = await pool.query("SELECT * FROM employee");
     res.status(200).json(response.rows);

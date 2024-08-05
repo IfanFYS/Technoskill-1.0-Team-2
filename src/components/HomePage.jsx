@@ -21,7 +21,7 @@ export default function HomePage() {
 
   const handleHomePage = async () => {
     try {
-      const response = await axios.post("http://localhost:8000/employee/get");
+      const response = await axios.post("http://localhost:8000/employee");
       console.log(response.data);
 
       setData(response.data);
