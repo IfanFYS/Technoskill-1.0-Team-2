@@ -3,7 +3,7 @@
 
 ## **Hey There! 👋**
 
-### **Welcome to Team 2's repository! In here, you will find a project that serves as our entry for the TechnoSkill 1.0 Competition**
+### ***Welcome to Team 2's repository! In here, you will find a project that serves as our entry for the TechnoSkill 1.0 Competition***
 
 
 ## **Overview 🔍**
@@ -107,7 +107,7 @@ After clicking the button to add a new employee, the user will be sent back to t
 |<img src="README\Figma-Dark.svg" alt="Figma" width="50"><br>`Figma`|<img src="README/HTML.svg" alt="HTML" width="50"><br>`HTML`|<img src="README\Postman.svg" alt="Postman" width="50"><br>`Postman`|
 |<img src="README\CSS.svg" alt="CSS" width="50"><br>`CSS`|<img src="README/JavaScript.svg" alt="JavaScript" width="50"><br>`JavaScript`|<img src="README\NodeJS-Dark.svg" alt="NodeJS" width="50"><br>`NodeJS`|
 |<img src="README\TailwindCSS-Dark.svg" alt="TailwindCSS" width="50"><br>`Tailwind`|<img src="README\React-Dark.svg" alt="ReactJS" width="50"><br>`ReactJS`|<img src="README\PostgreSQL-Dark.svg" alt="PostgreSQL" width="50"><br>`PostgreSQL`|
-||<img src="README\Vite-Dark.svg" alt="Vite" width="50"><br>`Vite`||
+||<img src="README\Vite-Dark.svg" alt="Vite" width="50"><br>`Vite`|<img src="README\NeonTech.svg" alt="Vite" width="50"><br>`NeonTech`|
 
 ## **Contributors 🤝**
 
