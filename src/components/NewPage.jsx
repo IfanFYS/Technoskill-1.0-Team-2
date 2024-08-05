@@ -19,7 +19,7 @@ export default function NewPage() {
         throw new Error("Invalid salary input");
       }
 
-      const response = await axios.post("http://localhost:8000/employee/add", {
+      const response = await axios.post("http://localhost:8000/employee/", {
         name,
         division,
         salary: numericSalary,

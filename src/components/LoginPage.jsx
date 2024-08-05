@@ -18,6 +18,8 @@ export default function LoginPage() {
   const [password, setPassword] = useState("");
   const [isRegister, setIsRegister] = useState(false);
 
+  const navigate = useNavigate();
+
   // Show Password
   const [showLoginPassword, setShowLoginPassword] = useState(false);
   const [showRegPassword, setShowRegPassword] = useState(false);
@@ -104,32 +106,44 @@ export default function LoginPage() {
 
   const handleLogin = async () => {
     try {
-      const response = await axios.post("http://localhost:8000/manager/login", {
-        email,
-        password,
+      // Include email and password as query parameters in the URL
+      const response = await axios.get("http://localhost:8000/manager", {
+        params: {
+          email,
+          password,
+        },
       });
+  
       if (response.status !== 200) throw new Error("Login failed");
+  
       console.log(response.data);
-      navigate("/home");
+  
+      // Assuming the response includes an ID or token for navigation
+      navigate(`/home/${response.data.id}`);
     } catch (error) {
-      console.error(error);
+      console.error("Error logging in:", error);
     }
   };
+  
+  
 
   const handleRegister = async () => {
     try {
-      const response = await axios.post("http://localhost:8000/manager/login", {
-        regName, email, password
+      // Use regName, regEmail, and regPassword for registration
+      const response = await axios.post("http://localhost:8000/manager", {
+        name: regName,
+        email: regEmail,
+        password: regPassword,
       });
-      if (response.status !== 200) throw new Error("Login failed");
+  
+      if (response.status !== 201) throw new Error("Registration failed");
       console.log(response.data);
-      navigate("/home");
+      navigate(`/home/${response.data.id}`);
     } catch (error) {
-      console.error(error);
+      console.error("Error registering:", error);
     }
   };
 
-  const navigate = useNavigate();
   const regPasswordValidation = validatePassword(regPassword, confirmPassword);
   const regEmailValidation = validateEmail(regEmail);
   const emailValidation = validateEmail(email);
@@ -275,7 +289,7 @@ export default function LoginPage() {
                 </div>
               </div>
               <button
-                type="submit"
+                type="button"
                 className="h-8 mt-4 py-[10px] px-[30px] flex items-center m-auto font-black text-white shadow-xl bg-[#6441c4] hover:bg-[#593BAB] rounded-lg transition-all sm:mt-4"
                 onClick={handleRegister}
                 disabled={
@@ -369,7 +383,7 @@ export default function LoginPage() {
                 </label>
               </div>
               <button
-                type="submit"
+                type="button"
                 className="h-8 mt-4 py-[10px] px-[30px] flex items-center m-auto font-black text-white shadow-xl bg-[#E55F9B] hover:bg-[#AA3A6D] rounded-lg transition-all "
                 onClick={handleLogin}
               >

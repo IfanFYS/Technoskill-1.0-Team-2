@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
+import { useNavigate, useParams } from 'react-router-dom';
 
 import NavbarElement from "./NavbarElement";
 import detailsIcon from "../../assets/details.svg";
@@ -10,19 +11,39 @@ export default function DetailsPage() {
   const [salary, setSalary] = useState("");
   const [formattedSalary, setFormattedSalary] = useState("");
 
-  const handleAddEmployee = async () => {
+  const { mid, id } = useParams();
+
+  const navigate = useNavigate();
+
+  const handleEditEmployee = async () => {
     try {
-      const response = await axios.post("http://localhost:8000/employee/add", {
+      const response = await axios.put(`http://localhost:8000/employee/${id}`, {
         name,
         division,
         salary,
       });
 
-      if (response.status !== 201) throw new Error("Add employee failed");
-
+      if (response.status !== 200) throw new Error("Add employee failed");
+      
       console.log(response.data);
+      navigate(`/home/${mid}`)
     } catch (error) {
-      console.error(error);
+      console.error(error.message);
+    }
+  };
+
+  const handleDeleteEmployee = async () => {
+    try {
+      // Make a DELETE request to the backend
+      const response = await axios.delete(`http://localhost:8000/employee/${id}`);
+
+      // Check if the request was successful
+      if (response.status !== 200) throw new Error('Failed deleting employee');
+
+      // Navigate to the "/home" page upon successful deletion
+      navigate('/home');
+    } catch (error) {
+      console.error('Error deleting employee:', error.message);
     }
   };
 
@@ -128,18 +149,18 @@ export default function DetailsPage() {
               <div className="px-5 grid grid-rows-2 xs:grid-cols-2 xs:grid-rows-1">
                 <div className="flex justify-center xs:justify-start">
                   <button
-                    type="submit"
+                    type="button"
                     className="text-sm md:text-[12px] h-8 md:h-6 mt-4 py-[10px] md:py-[8px] px-[30px] md:px-[15px]  flex items-center font-black text-white bg-[#AA603A] hover:bg-[#b05629] rounded-lg"
-                    onClick={handleAddEmployee}
+                    onClick={handleEditEmployee}
                   >
                     SAVE CHANGES
                   </button>
                 </div>
                 <div className="flex justify-center xs:justify-end">
                   <button
-                    type="submit"
+                    type="button"
                     className="text-sm md:text-[12px] h-8 md:h-6 mt-4 py-[10px] md:py-[8px] px-[30px] md:px-[15px] flex items-center font-black text-white bg-[#AA3A3A] hover:bg-[#af2c2c] rounded-lg"
-                    onClick={handleAddEmployee}
+                    onClick={handleDeleteEmployee}
                   >
                     DELETE EMPLOYEE
                   </button>

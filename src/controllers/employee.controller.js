@@ -1,3 +1,4 @@
+import { useParams } from 'react-router-dom';
 import pool from '../utils/connect.js';
 
 // Function to add a new employee
@@ -85,7 +86,7 @@ export const getEmployeesSalaryBetween = async (req, res) => {
 // Function to search an employee by ID
 export const getOneEmployeeByID = async (req, res) => {
   try {
-    const { id } = req.body;
+    const { id } = req.params; // Accessing params from req.params
     const response = await pool.query(
       "SELECT * FROM employee WHERE id = $1",
       [id]
@@ -101,10 +102,12 @@ export const getOneEmployeeByID = async (req, res) => {
   }
 };
 
+
 // Function to edit an existing employee
 export const editEmployee = async (req, res) => {
   try {
-    const { id, name, division, salary, profile_image_url } = req.body;
+    const { id } = req.params
+    const { name, division, salary, profile_image_url } = req.body;
 
     // Check if ID is provided
     if (!id) {
@@ -166,7 +169,7 @@ export const editEmployee = async (req, res) => {
 // Function to delete an existing employee
 export const deleteEmployee = async (req, res) => {
   try {
-    const { id } = req.body;
+    const { id } = req.params;
     const response = await pool.query(
       "DELETE FROM employee WHERE id = $1 RETURNING *",
       [id]
