@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 
 import NavbarElement from "./elements/NavbarElement";
@@ -38,6 +38,7 @@ export default function HomePage() {
   }, []);
 
   const navigate = useNavigate();
+  const { mid } = useParams();
 
   return (
     <div className="bg-[#1C1B17] min-h-screen flex justify-center">
@@ -147,7 +148,7 @@ export default function HomePage() {
                         <li
                           key={index}
                           className="flex flex-row items-center my-1 sm:mb-1 w-full px-5 text-left cursor-pointer group"
-                          onClick={() => navigate(`/home/details/${employee.id}`)} // Navigate to /home/details/:id
+                          onClick={() => navigate(`/home/${mid}/details/${employee.id}`)} // Navigate to /home/details/:id
                         >
                           <div className="w-10 sm:text-lg text-center bg-[#403E36] group-hover:bg-[#49473f] text-white outline-none px-2 rounded-lg mr-0.5 group-hover:border-solid group-hover:border-[1px] group-hover:border-white">
                             {index + 1}

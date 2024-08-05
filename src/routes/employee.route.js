@@ -9,10 +9,10 @@ import {
 
 const employeeRouter = express.Router();
 
-employeeRouter.post("/add", addEmployee);
+employeeRouter.post("/", addEmployee);
 employeeRouter.get("/", getAllEmployee);
 employeeRouter.get("/:id", getOneEmployeeByID);
-employeeRouter.put("/edit/:id", editEmployee);
-employeeRouter.delete("/delete/:id", deleteEmployee); // Change PUT to DELETE
+employeeRouter.put("/:id", editEmployee);
+employeeRouter.delete("/:id", deleteEmployee); 
 
 export default employeeRouter;

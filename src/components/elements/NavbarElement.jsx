@@ -1,13 +1,15 @@
 import { useEffect, useState, useRef } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import PropTypes from "prop-types";
 
 import logo from "../../assets/logo.svg";
 import logout from "../../assets/logout.svg";
 
+const { mid } = useParams();
+
 const navItems = [
   { id: "home", text: "Home", path: "/home", current: false },
-  { id: "my-info", text: "My Info", path: "/my-info", current: false },
+  { id: "my-info", text: "My Info", path: `/my-info/${mid}`, current: false },
   { id: "new", text: "Add New Employee", path: "/new", current: false },
 ];
 

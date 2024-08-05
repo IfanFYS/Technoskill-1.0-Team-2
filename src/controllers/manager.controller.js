@@ -8,13 +8,11 @@ export const register = async (req, res) => {
     if (!name || !email || !password) {
       return res.status(400).json({ error: 'Name, email, and password are required' });
     }
-
-    const defaultProfileImage = '../assets/new.svg';
     const response = await pool.query(
-      `INSERT INTO managers (name, email, hashed_password, profile_image_url) 
-      VALUES ($1, $2, $3, $4) 
+      `INSERT INTO managers (name, email, password) 
+      VALUES ($1, $2, $3) 
       RETURNING *`,
-      [name, email, password, defaultProfileImage]
+      [name, email, password]
     );
 
     res.status(201).json(response.rows[0]);
@@ -27,28 +25,35 @@ export const register = async (req, res) => {
 // Login Function
 export const login = async (req, res) => {
   try {
-    const { email, password } = req.body;
-    
+    const { email, password } = req.query; // Extract data from query parameters
+
+    // Validate input
     if (!email || !password) {
       return res.status(400).json({ error: 'Email and password are required' });
     }
 
+    // Query the database for the user with the provided email
     const response = await pool.query(
       "SELECT * FROM managers WHERE email = $1",
       [email]
     );
 
+    // Check if a user was found with the given email
     if (response.rows.length === 0) {
       return res.status(404).json({ error: "User not found" });
     }
 
     const manager = response.rows[0];
 
+    // Directly compare the provided password with the stored password
     if (password !== manager.password) {
       return res.status(401).json({ error: "Incorrect password" });
     }
 
-    res.status(200).json(manager);
+    // Exclude the password from the response for security reasons
+    const { password: _, ...userWithoutPassword } = manager;
+
+    res.status(200).json(userWithoutPassword);
   } catch (error) {
     console.error('Error logging in:', error);
     res.status(500).json({ error: error.message });
