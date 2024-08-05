@@ -8,21 +8,32 @@ export default function NewPage() {
   const [name, setName] = useState("");
   const [division, setDivision] = useState("");
   const [salary, setSalary] = useState("");
-  const [formattedSalary, setFormattedSalary] = useState("");
 
-  const handleAddEmployee = async () => {
+  const handleAddEmployee = async (e) => {
+    e.preventDefault(); // Prevent form submission
     try {
+      // Parse the salary input as a float to ensure it's a number
+      const numericSalary = parseFloat(salary.replace(/,/g, ""));
+
+      if (isNaN(numericSalary)) {
+        throw new Error("Invalid salary input");
+      }
+
       const response = await axios.post("http://localhost:8000/employee/add", {
         name,
         division,
-        salary,
+        salary: numericSalary,
       });
 
       if (response.status !== 201) throw new Error("Add employee failed");
 
-      console.log(response.data);
+      console.log("Employee added successfully:", response.data);
     } catch (error) {
-      console.error(error);
+      if (axios.isAxiosError(error)) {
+        console.error("Axios error:", error.message);
+      } else {
+        console.error("Unexpected error:", error);
+      }
     }
   };
 
@@ -34,11 +45,7 @@ export default function NewPage() {
     }).format(number);
   };
 
-  useEffect(() => {
-    setFormattedSalary(formatSalary(salary));
-  }, [salary]);
-
-  const handleChange = (e) => {
+  const handleSalaryChange = (e) => {
     const value = e.target.value.replace(/[^0-9.]/g, "");
     setSalary(value);
   };
@@ -51,6 +58,7 @@ export default function NewPage() {
         <form
           id="new"
           className="pb-5 bg-[#232A22] w-full transition-all duration-1000 ease-in-out overflow-hidden"
+          onSubmit={handleAddEmployee} // Use onSubmit for form
         >
           <div className="py-3 text-xl md:text-2xl font-light mb-4 text-white text-center bg-[#354C33]">
             Add New Employee
@@ -107,8 +115,8 @@ export default function NewPage() {
                 <input
                   type="text"
                   value={salary}
-                  onChange={handleChange}
-                  onBlur={() => setSalary(formattedSalary)}
+                  onChange={handleSalaryChange}
+                  onBlur={() => setSalary(formatSalary(salary))}
                   className="text-xs font-light text-white px-2 h-6 w-full outline-none bg-[#2F382E] peer rounded-lg placeholder:italic placeholder:opacity-60 placeholder-white shadow-xl focus:border-solid focus:border-[1px] focus:border-white valid:text-transparent"
                   placeholder="0.00"
                   required
@@ -121,14 +129,13 @@ export default function NewPage() {
                 </label>
                 <div className="absolute top-1.5 flex items-center pointer-events-none">
                   <span className="text-xs font-light text-white px-2">
-                    {formattedSalary}
+                    {formatSalary(salary)}
                   </span>
                 </div>
               </div>
               <button
-                type="submit"
+                type="submit" // Set type to "submit"
                 className="h-8 mt-4 py-[10px] px-[30px] flex items-center m-auto font-black text-white shadow-xl bg-[#4B9145] hover:bg-[#61ba59] rounded-lg transition-all "
-                onClick={handleAddEmployee}
               >
                 ADD EMPLOYEE
               </button>

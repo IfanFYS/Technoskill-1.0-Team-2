@@ -3,10 +3,10 @@ import pool from '../utils/connect.js';
 // Function to add a new employee
 export const addEmployee = async (req, res) => {
   try {
-    const { name, division, salary, profile_image_url, date_joined } = req.body;
+    const { name, division, salary } = req.body;
     const response = await pool.query(
       "INSERT INTO employee (name, division, salary, profile_image_url, date_joined) VALUES ($1, $2, $3, $4, $5) RETURNING *",
-      [name, division, salary, profile_image_url, date_joined]
+      [name, division, salary, null, null]
     );
 
     res.status(201).json(response.rows[0]); // Returns HTTP status code 201.
