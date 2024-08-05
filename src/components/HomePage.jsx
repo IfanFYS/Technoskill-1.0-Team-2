@@ -12,6 +12,7 @@ export default function HomePage() {
   const [data, setData] = useState([]);
   const [searchBy, setSearchBy] = useState("name");
   const [search, setSearch] = useState("");
+  const [loading, setLoading] = useState(true);
 
   const options = [
     { name: "Name", value: "name" },
@@ -21,12 +22,14 @@ export default function HomePage() {
 
   const handleHomePage = async () => {
     try {
-      const response = await axios.post("http://localhost:8000/employee/get");
-      console.log(response.data);
+      const response = await axios.get("http://localhost:8000/employee");
+      console.log("Response Data:", response.data); // Log the response data
 
       setData(response.data);
     } catch (error) {
-      console.error(error);
+      console.error("Error fetching data:", error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -96,79 +99,89 @@ export default function HomePage() {
                 <img src={searchIcon} className="w-4 sm:w-5 invert" />
               </span>
             </div>
-            <ol>
-              {data.length > 0 ? (
-                <>
-                  <li className="mt-1 w-full px-5 text-left hidden sm:flex">
-                    <div className="w-10 sm:text-lg text-center font-semibold text-white outline-none px-2 rounded-lg mr-0.5">
-                      No
-                    </div>
-                    <div className="w-[40%] sm:text-lg font-semibold text-white outline-none px-2 rounded-lg mx-0.5">
-                      Name
-                    </div>
-                    <div className="w-[30%] sm:text-lg font-semibold text-white outline-none px-2 rounded-lg mx-0.5">
-                      Division
-                    </div>
-                    <div className="w-[30%] sm:text-lg font-semibold text-white outline-none px-2 rounded-lg ml-0.5">
-                      Salary
+            {loading ? (
+              <div className="flex items-center justify-center my-1 sm:mb-1 w-full px-5 text-center">
+                <div className="font-semibold text-white px-2 py-1 w-full outline-none bg-[#403E36] hover:bg-[#49473f] rounded-lg shadow-xl">
+                  Loading...
+                </div>
+              </div>
+            ) : (
+              <ol>
+                {data.length > 0 ? (
+                  <>
+                    <li className="mt-1 w-full px-5 text-left hidden sm:flex">
+                      <div className="w-10 sm:text-lg text-center font-semibold text-white outline-none px-2 rounded-lg mr-0.5">
+                        No
+                      </div>
+                      <div className="w-[40%] sm:text-lg font-semibold text-white outline-none px-2 rounded-lg mx-0.5">
+                        Name
+                      </div>
+                      <div className="w-[30%] sm:text-lg font-semibold text-white outline-none px-2 rounded-lg mx-0.5">
+                        Division
+                      </div>
+                      <div className="w-[30%] sm:text-lg font-semibold text-white outline-none px-2 rounded-lg ml-0.5">
+                        Salary
+                      </div>
+                    </li>
+                    {data
+                      .filter((item) => {
+                        if (search === "") return item;
+
+                        const searchTerm = search.toLowerCase();
+                        switch (searchBy) {
+                          case "name":
+                            return item.name
+                              .toLowerCase()
+                              .includes(searchTerm);
+                          case "division":
+                            return item.division
+                              .toLowerCase()
+                              .includes(searchTerm);
+                          case "salary":
+                            return item.salary.toString().includes(searchTerm);
+                          default:
+                            return true;
+                        }
+                      })
+                      .map((employee, index) => (
+                        <li
+                          key={index}
+                          className="flex flex-row items-center my-1 sm:mb-1 w-full px-5 text-left cursor-pointer group"
+                          onClick={() => navigate("/home/details")}
+                        >
+                          <div className="w-10 sm:text-lg text-center bg-[#403E36] group-hover:bg-[#49473f] text-white outline-none px-2 rounded-lg mr-0.5 group-hover:border-solid group-hover:border-[1px] group-hover:border-white">
+                            {index + 1}
+                          </div>
+                          <div className="w-[100%] sm:text-lg bg-[#403E36] group-hover:bg-[#49473f] text-white outline-none px-2 rounded-lg mx-0.5 relative sm:w-[40%] group-hover:border-solid group-hover:border-[1px] group-hover:border-white">
+                            {employee.name}
+                            <span className="absolute right-1 top-1">
+                              <img src={editIcon} className="w-3 invert" />
+                            </span>
+                          </div>
+                          <div className="w-[30%] sm:text-lg bg-[#403E36] group-hover:bg-[#49473f] text-white outline-none px-2 rounded-lg mx-0.5 hidden sm:block group-hover:border-solid group-hover:border-[1px] group-hover:border-white">
+                            {employee.division}
+                          </div>
+                          <div className="w-[30%] sm:text-lg bg-[#403E36] group-hover:bg-[#49473f] text-white outline-none px-2 rounded-lg ml-0.5 hidden sm:block group-hover:border-solid group-hover:border-[1px] group-hover:border-white">
+                            {employee.salary}
+                          </div>
+                        </li>
+                      ))}
+                  </>
+                ) : (
+                  <li className="flex items-center justify-center my-1 sm:mb-1 w-full px-5 text-center">
+                    <div className="font-semibold text-white px-2 py-1 w-full outline-none bg-[#403E36] hover:bg-[#49473f] rounded-lg shadow-xl">
+                      NO DATA
+                      <div
+                        className="text-xs text-[#44C9DC] text-center font-semibold cursor-pointer"
+                        onClick={() => navigate("/new")}
+                      >
+                        Add Employee
+                      </div>
                     </div>
                   </li>
-                  {data
-                    .filter((item) => {
-                      if (search === "") return item;
-
-                      const searchTerm = search.toLowerCase();
-                      switch (searchBy) {
-                        case "name":
-                          return item.name.toLowerCase().includes(searchTerm);
-                        case "division":
-                          return item.division
-                            .toLowerCase()
-                            .includes(searchTerm);
-                        case "salary":
-                          return item.salary.toString().includes(searchTerm);
-                        default:
-                          return true;
-                      }
-                    })
-                    .map((employee, index) => (
-                      <li
-                        key={index}
-                        className="flex flex-row items-center my-1 sm:mb-1 w-full px-5 text-left cursor-pointer group"
-                        onClick={() => navigate("/home/details")}
-                      >
-                        <div className="w-10 sm:text-lg text-center bg-[#403E36] group-hover:bg-[#49473f] text-white outline-none px-2 rounded-lg mr-0.5 group-hover:border-solid group-hover:border-[1px] group-hover:border-white">
-                          {index + 1}
-                        </div>
-                        <div className="w-[100%] sm:text-lg bg-[#403E36] group-hover:bg-[#49473f] text-white outline-none px-2 rounded-lg mx-0.5 relative sm:w-[40%] group-hover:border-solid group-hover:border-[1px] group-hover:border-white">
-                          {employee.name}
-                          <span className="absolute right-1 top-1">
-                            <img src={editIcon} className="w-3 invert" />
-                          </span>
-                        </div>
-                        <div className="w-[30%] sm:text-lg bg-[#403E36] group-hover:bg-[#49473f] text-white outline-none px-2 rounded-lg mx-0.5 hidden sm:block group-hover:border-solid group-hover:border-[1px] group-hover:border-white">
-                          {employee.division}
-                        </div>
-                        <div className="w-[30%] sm:text-lg bg-[#403E36] group-hover:bg-[#49473f] text-white outline-none px-2 rounded-lg ml-0.5 hidden sm:block group-hover:border-solid group-hover:border-[1px] group-hover:border-white">
-                          {employee.salary}
-                        </div>
-                      </li>
-                    ))}
-                </>
-              ) : (
-                <li className="flex items-center justify-center my-1 sm:mb-1 w-full px-5 text-center">
-                  <div className="font-semibold text-white px-2 py-1 w-full outline-none bg-[#403E36] hover:bg-[#49473f] rounded-lg shadow-xl">
-                    NO DATA
-                    <div
-                      className="text-xs text-[#44C9DC] text-center font-semibold cursor-pointer"
-                      onClick={() => navigate("/new")}
-                    >
-                      Add Employee
-                    </div>
-                  </div>
-                </li>
-              )}
-            </ol>
+                )}
+              </ol>
+            )}
           </div>
         </div>
       </div>

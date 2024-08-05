@@ -119,8 +119,7 @@ export default function LoginPage() {
   const handleRegister = async () => {
     try {
       const response = await axios.post("http://localhost:8000/manager/login", {
-        name,
-        password,
+        regName, email, password
       });
       if (response.status !== 200) throw new Error("Login failed");
       console.log(response.data);

@@ -5,8 +5,8 @@ export const addEmployee = async (req, res) => {
   try {
     const { name, division, salary } = req.body;
     const response = await pool.query(
-      "INSERT INTO employee (name, division, salary) VALUES ($1, $2, $3) RETURNING *",
-      [name, division, salary]
+      "INSERT INTO employee (name, division, salary, profile_image_url, date_joined) VALUES ($1, $2, $3, $4, $5) RETURNING *",
+      [name, division, salary, null, null]
     );
 
     res.status(201).json(response.rows[0]); // Returns HTTP status code 201.
@@ -104,11 +104,53 @@ export const getOneEmployeeByID = async (req, res) => {
 // Function to edit an existing employee
 export const editEmployee = async (req, res) => {
   try {
-    const { id, name, division, salary } = req.body;
-    const response = await pool.query(
-      "UPDATE employee SET name = $1, division = $2, salary = $3 WHERE id = $4 RETURNING *",
-      [name, division, salary, id]
-    );
+    const { id, name, division, salary, profile_image_url } = req.body;
+
+    // Check if ID is provided
+    if (!id) {
+      return res.status(400).json({ error: "Employee ID is required" });
+    }
+
+    // Prepare the update fields and values dynamically
+    let updateFields = [];
+    let values = [];
+    let queryIndex = 1;
+
+    if (name) {
+      updateFields.push(`name = $${queryIndex}`);
+      values.push(name);
+      queryIndex++;
+    }
+
+    if (division) {
+      updateFields.push(`division = $${queryIndex}`);
+      values.push(division);
+      queryIndex++;
+    }
+
+    if (salary) {
+      updateFields.push(`salary = $${queryIndex}`);
+      values.push(salary);
+      queryIndex++;
+    }
+
+    if (profile_image_url) {
+      updateFields.push(`profile_image_url = $${queryIndex}`);
+      values.push(profile_image_url);
+      queryIndex++;
+    }
+
+    // Ensure at least one field is being updated
+    if (updateFields.length === 0) {
+      return res.status(400).json({ error: 'No fields to update' });
+    }
+
+    // Append the ID for the WHERE clause
+    values.push(id);
+
+    const updateQuery = `UPDATE employee SET ${updateFields.join(', ')} WHERE id = $${queryIndex} RETURNING *`;
+    
+    const response = await pool.query(updateQuery, values);
 
     if (response.rows.length === 0) {
       res.status(404).json({ message: "Employee not found" });
@@ -119,6 +161,7 @@ export const editEmployee = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
+
 
 // Function to delete an existing employee
 export const deleteEmployee = async (req, res) => {
