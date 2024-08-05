@@ -30,6 +30,18 @@ export default function DetailsPage() {
     }
   };
 
+  const handleDeleteEmployee = async () => {
+    try {
+      const response = await axios.delete(`http://localhost:8000/delete/${id}`, {
+          id,
+        });
+
+        if (response.status !== 200) throw new Error("Failed deleting employee");
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
   const formatSalary = (value) => {
     const number = parseFloat(value.replace(/[^0-9.]/g, ""));
     if (isNaN(number)) return "";
@@ -134,7 +146,7 @@ export default function DetailsPage() {
                   <button
                     type="submit"
                     className="text-sm md:text-[12px] h-8 md:h-6 mt-4 py-[10px] md:py-[8px] px-[30px] md:px-[15px]  flex items-center font-black text-white bg-[#AA603A] hover:bg-[#b05629] rounded-lg"
-                    onClick={handleAddEmployee}
+                    onClick={handleEditEmployee}
                   >
                     SAVE CHANGES
                   </button>
@@ -143,7 +155,7 @@ export default function DetailsPage() {
                   <button
                     type="submit"
                     className="text-sm md:text-[12px] h-8 md:h-6 mt-4 py-[10px] md:py-[8px] px-[30px] md:px-[15px] flex items-center font-black text-white bg-[#AA3A3A] hover:bg-[#af2c2c] rounded-lg"
-                    onClick={handleAddEmployee}
+                    onClick={handleDeleteEmployee}
                   >
                     DELETE EMPLOYEE
                   </button>
